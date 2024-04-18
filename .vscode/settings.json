@@ -1,0 +1,7 @@
+{
+	"python.terminal.launchArgs": [
+
+	],
+	"editor.defaultFormatter": "ms-python.vscode-pylance",
+	"python.analysis.typeCheckingMode": "strict"
+}
