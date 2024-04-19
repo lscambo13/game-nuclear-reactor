@@ -3,5 +3,6 @@
 
 	],
 	"editor.defaultFormatter": "ms-python.vscode-pylance",
-	"python.analysis.typeCheckingMode": "strict"
+	"python.analysis.typeCheckingMode": "strict",
+	"python.analysis.autoImportCompletions": true
 }
