@@ -99,6 +99,21 @@ def center_text(text:str, separator:str=" "):
 	padding_text = (space_around//len(separator)) * separator
 	return f"{padding_text} {text} {padding_text}"
 
+def exit_game(fail:bool=False):
+	logger.debug('Exiting')
+	if fail is True:
+		color_console(Color.LIGHT_RED, Color.BLACK)
+		print(f"\n\n")
+		print(center_text("Intruder suspected!"))
+		print(center_text("System entering lockdown mode..."))
+	print("\n")
+	print(center_text(MSG_EXIT, "-  "))
+	print("\n")
+	input("...")
+	color_console()
+	# os.system("run.bat")
+	exit()
+
 def choose_difficulty():
 	try:
 		print(center_text(MSG_CHOOSE_LEVEL))
@@ -106,6 +121,8 @@ def choose_difficulty():
 		if input_level>10 or input_level<1:
 			raise NotImplementedError
 		return input_level
+	except KeyboardInterrupt:
+		exit_game()
 	except Exception as err:
 		logger.error(f"Level select: {err}")
 		return -1
@@ -127,25 +144,12 @@ def main_menu():
 	print("\n\n")
 	return
 
-def exit_game(fail:bool=False):
-	logger.debug('Exiting')
-	if fail is True:
-		color_console(Color.LIGHT_RED, Color.BLACK)
-		print(f"\n\n")
-		print(center_text("Intruder suspected!"))
-		print(center_text("System entering lockdown mode..."))
-	print("\n")
-	print(center_text(MSG_EXIT, "-  "))
-	print("\n")
-	input("...")
-	color_console()
-	# os.system("run.bat")
-	exit()
-
 def prompt_nuclear_code_input():
 	try:
 		input_code = int(input(f"{' ' * 4}Password: "))
 		return input_code
+	except KeyboardInterrupt:
+		exit_game()
 	except Exception as err:
 		logger.error(f"User input: {err}")
 		return None
