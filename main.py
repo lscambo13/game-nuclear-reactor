@@ -19,8 +19,8 @@ GAME_TITLE = "N U C L E A R  R E A C T O R  C O N S O L E"
 MSG_EXIT = "E X I T I N G"
 MSG_SUCCESS = "Success!"
 MSG_FAIL = "Incorrect!"
-MSG_LOCKDOWN = "Intruder suspected!\nSystem entering lockdown mode!"
-MSG_CHOOSE_LEVEL = "Which tower do you wish to access? (Select between 1-10)"
+# MSG_LOCKDOWN = "Intruder suspected!\nSystem entering lockdown mode!"
+MSG_CHOOSE_LEVEL = "Which tower do you wish to access?"
 selected_level:int = -1
 
 
@@ -101,7 +101,8 @@ def center_text(text:str, separator:str=" "):
 
 def choose_difficulty():
 	try:
-		input_level = int(input(center_text(MSG_CHOOSE_LEVEL)))
+		print(center_text(MSG_CHOOSE_LEVEL))
+		input_level = int(input("\t\t\t    Select between 1 and 10: "))
 		if input_level>10 or input_level<1:
 			raise NotImplementedError
 		return input_level
@@ -116,25 +117,30 @@ def main_menu():
 	# if score:
 	# 	zeroes = (4 - len(str(score))) * "0"
 	# 	score = f"{zeroes}{str(score)}"
+	print(center_text("-"," - "))
 	print("\n")
 	print(center_text(f"Security Level: {DifficultyLevel(selected_level).name} {' ' * 32} High Score: {score}"))
 	logger.debug(SECRET_CODE)
 	# print(SECRET_CODE)
 	print("\n")
 	print(center_text(GAME_TITLE, " - "))
-	print("\n")
+	print("\n\n")
 	return
 
 def exit_game(fail:bool=False):
 	logger.debug('Exiting')
 	if fail is True:
 		color_console(Color.LIGHT_RED, Color.BLACK)
-		print(MSG_LOCKDOWN)
+		print(f"\n\n")
+		print(center_text("Intruder suspected!"))
+		print(center_text("System entering lockdown mode..."))
 	print("\n")
 	print(center_text(MSG_EXIT, "-  "))
 	print("\n")
 	input("...")
 	color_console()
+	# os.system("run.bat")
+	exit()
 
 def prompt_nuclear_code_input():
 	try:
@@ -154,7 +160,7 @@ def log_in(lives:int=7):
 		main_menu()
 		color_console(Color.BLACK, Color.LIGHT_RED)
 		lives = lives - 1
-		print(f"{' ' * 4}Attempts remaining: {lives}\t\t\t\t\tDebug: {hint}\n")
+		print(f"{' ' * 4}Attempts remaining: {lives}\t\t\t\t\tDebug: {hint}")
 		input_code = prompt_nuclear_code_input()
 		if input_code is None:
 			exit_game(True)
